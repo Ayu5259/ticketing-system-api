@@ -1,45 +1,59 @@
 # Ticketing System API (Laravel)
 
-API-first ticketing system built with Laravel for portfolio and interview demonstration.
+This repository contains a **practice-oriented backend project** built with Laravel.
 
-## Goals
+The goal of this project is not to deliver a production-ready system,  
+but to **demonstrate real-world backend concepts** through a clean, step-by-step implementation,
+similar to how features are developed in a professional team environment.
 
--   Clean, step-by-step development with professional Git workflow
--   FormRequest validation
--   Policy-based authorization
--   Clear business rules (ticket lifecycle)
+---
 
-## Tech
+## Project Purpose
 
--   Laravel (API-first)
--   Sanctum (token auth)
--   PHPUnit (feature tests)
+This project is designed as a **learning and portfolio project** to practice:
 
-## Run locally
+- API-first development with Laravel
+- Clean Git workflow (feature branches, meaningful commits)
+- Request validation using FormRequest classes
+- Authorization using Policies (no inline permission checks)
+- Explicit business rules (ticket lifecycle, access rules)
+- Writing code that can be explained clearly in technical interviews
 
-1. `cp .env.example .env`
-2. `composer install`
-3. `php artisan key:generate`
-4. Configure DB in `.env`
-5. `php artisan migrate`
-6. `php artisan serve`
+Each feature is implemented incrementally and committed separately to reflect
+real development workflow rather than a single large dump of code.
 
-## API
+---
 
-Base URL: `/api/v1`
+## Tech Stack
 
-### Health
+- Laravel (API-only approach)
+- Laravel Sanctum (token-based authentication)
+- PHPUnit (feature-level testing)
+- MySQL / SQLite (depending on environment)
 
-`GET /api/v1/health`
+---
 
-Response:
+## Running the Project Locally
 
-```json
-{
-    "success": true,
-    "message": "Healthy",
-    "data": {
-        "service": "ticketing-system-api"
-    }
-}
-```
+1. Copy environment file  
+   `cp .env.example .env`
+
+2. Install dependencies  
+   `composer install`
+
+3. Generate application key  
+   `php artisan key:generate`
+
+4. Configure database credentials in `.env`
+
+5. Run migrations  
+   `php artisan migrate`
+
+6. Start development server  
+   `php artisan serve`
+
+---
+
+## API Structure
+
+Base URL:
