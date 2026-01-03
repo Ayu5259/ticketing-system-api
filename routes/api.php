@@ -24,5 +24,6 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('tickets', [TicketController::class, 'store']);
+        Route::post('tickets/{ticket}/reply', [TicketController::class, 'reply']);
     });
 });

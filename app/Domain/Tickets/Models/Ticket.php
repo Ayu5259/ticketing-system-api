@@ -39,4 +39,14 @@ class Ticket extends Model
     {
         return TicketStatus::default()->value;
     }
+
+    public function isClosed(): bool
+    {
+        return $this->status === TicketStatus::CLOSED->value;
+    }
+
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
+    }
 }
