@@ -26,4 +26,8 @@ Route::prefix('v1')->group(function () {
         Route::post('tickets', [TicketController::class, 'store']);
         Route::post('tickets/{ticket}/reply', [TicketController::class, 'reply']);
     });
+    //TMP
+    Route::get('debug/boom', function () {
+        throw new \RuntimeException('BOOM_HANDLER_TEST');
+    });
 });
