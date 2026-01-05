@@ -25,6 +25,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('tickets', [TicketController::class, 'store']);
         Route::post('tickets/{ticket}/reply', [TicketController::class, 'reply']);
+        Route::post('tickets/{ticket}/close', [TicketController::class, 'close']);
     });
     //TMP
     Route::get('debug/boom', function () {

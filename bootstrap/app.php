@@ -18,27 +18,25 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $exceptions->render(function (\Throwable $e, $request) {
 
-            // فقط API
             if (! $request->is('api/*')) {
-                return null; // رفتار پیش‌فرض برای web
+                return null;
             }
 
-            // 422 - Validation
             if ($e instanceof \Illuminate\Validation\ValidationException) {
                 return \App\Http\Responses\ApiResponse::validation($e->errors());
             }
 
-            // 401 - Unauthenticated
             if ($e instanceof \Illuminate\Auth\AuthenticationException) {
                 return \App\Http\Responses\ApiResponse::unauthorized();
             }
 
-            // 403 - Forbidden
-            if ($e instanceof \Illuminate\Auth\Access\AuthorizationException) {
-                return \App\Http\Responses\ApiResponse::forbidden();
+            if (
+                $e instanceof \Illuminate\Auth\Access\AuthorizationException ||
+                $e instanceof \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+            ) {
+                return \App\Http\Responses\ApiResponse::error($e->getMessage(), null, 403);
             }
 
-            // 404 - Not Found (route/model)
             if (
                 $e instanceof \Illuminate\Database\Eloquent\ModelNotFoundException ||
                 $e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
@@ -46,12 +44,10 @@ return Application::configure(basePath: dirname(__DIR__))
                 return \App\Http\Responses\ApiResponse::notFound();
             }
 
-            // 422 - Domain rule violation
             if ($e instanceof \DomainException) {
                 return \App\Http\Responses\ApiResponse::error($e->getMessage(), null, 422);
             }
 
-            // 500 - unexpected
             return \App\Http\Responses\ApiResponse::serverError();
         });
     })->create();

@@ -44,5 +44,9 @@ class ReplyToTicketAction
 
             return $ticket->load('messages');
         });
+
+        if ($ticket->status === TicketStatus::CLOSED->value) {
+            throw new DomainException('Ticket is closed.');
+        }
     }
 }
